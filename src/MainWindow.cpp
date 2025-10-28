@@ -1037,15 +1037,8 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
     if(m_trayIcon && m_trayIcon->isVisible())
     {
-        if(!m_firstCloseMessage)
-        {
-            QMessageBox::information(this, tr("Systray"),
-                                     tr("The program will keep running in the "
-                                        "system tray. To terminate the program, "
-                                        "choose <b>Quit</b> in the context menu "
-                                        "of the system tray entry."));
-            m_firstCloseMessage= true;
-        }
+        // System tray notification dialog removed - user requested to suppress this message
+        m_firstCloseMessage = true;
 
         hide();
         event->ignore();

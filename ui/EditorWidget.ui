@@ -1173,7 +1173,7 @@
    </property>
    <property name="icon">
     <iconset resource="../res/hotshots.qrc">
-     <normaloff>:/editor/editor/save.png</normaloff>:/editor/editor/save.png</iconset>
+     <normaloff>:/editor/editor/save_yellow.png</normaloff>:/editor/editor/save_yellow.png</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -1194,7 +1194,7 @@
    </property>
    <property name="icon">
     <iconset resource="../res/hotshots.qrc">
-     <normaloff>:/editor/editor/save_as.png</normaloff>:/editor/editor/save_as.png</iconset>
+     <normaloff>:/editor/editor/save_as_yellow.png</normaloff>:/editor/editor/save_as_yellow.png</iconset>
    </property>
    <property name="text">
     <string>Save as</string>

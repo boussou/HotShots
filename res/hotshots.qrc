@@ -103,6 +103,8 @@
     <file>editor/polygon_diagonal.png</file>
     <file>editor/polygon_unfilled.png</file>
     <file>editor/save.png</file>
+    <file>editor/save_yellow.png</file>
+    <file>editor/save_as_yellow.png</file>
     <file>editor/text.png</file>
   </qresource>
 </RCC>
