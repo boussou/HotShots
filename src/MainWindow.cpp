@@ -475,7 +475,7 @@ void MainWindow::loadSettings()
     m_rotateImage= settings.value("rotateImage", false).toBool();
     m_angle= settings.value("angle", false).toFloat();
 
-    m_defaultUploader= settings.value("defaultUploader", -1).toInt();
+    m_defaultUploader= settings.value("defaultUploader", 1).toInt();
 
     m_forceBgColor= settings.value("forceBgColor", false).toBool();
     m_bgColor= settings.value("bgColor", QColor(Qt::white)).value<QColor>();

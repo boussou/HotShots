@@ -23,7 +23,7 @@
 
 #include <QtCore/QSettings>
 
-#define PACKAGE_ORGANIZATION "TheHive"
+#define PACKAGE_ORGANIZATION "HotShots"
 #define PACKAGE_NAME "HotShots"
 #define PACKAGE_VERSION "2.2.1"
 #define PACKAGE_ONLINE_HELP_URL "https://github.com/boussou/HotShots"
