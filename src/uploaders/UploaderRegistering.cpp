@@ -22,18 +22,12 @@
 #include "UploaderManager.h"
 
 #include "ImgurUploader.h"
-#include "ImageshackUploader.h"
 #include "FtpUploader.h"
-#include "FreeImageHostingUploader.h"
-#include "CanardPCUploader.h"
 
 int UploaderRegistering::registerAll()
 {
     UploaderManager::registerUploader( new FtpUploader() );
-    UploaderManager::registerUploader( new FreeImageHostingUploader() );
     UploaderManager::registerUploader( new ImgurUploader() );
-    UploaderManager::registerUploader( new ImageshackUploader() );
-    UploaderManager::registerUploader( new CanardPCUploader() );
 
     return UploaderManager::getUploaders().size();
 }

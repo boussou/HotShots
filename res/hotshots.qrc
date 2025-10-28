@@ -37,10 +37,7 @@
     <file>icon_quit.png</file>
   </qresource>
   <qresource prefix="providers">
-    <file>providers/canardpc.png</file>
-    <file>providers/freeimagehosting.png</file>
     <file>providers/ftp.png</file>
-    <file>providers/imageshack.png</file>
     <file>providers/imgur.png</file>
     <file>providers/unknown.png</file>
   </qresource>
