@@ -198,6 +198,9 @@ int main(int argc, char *argv[])
 
     if (editorOnly)
     {
+        // In editor-only mode, quit when the last window is closed (no system tray)
+        app.setQuitOnLastWindowClosed(true);
+        
         // Launch editor directly
         EditorWidget *editor = new EditorWidget();
         editor->show();
