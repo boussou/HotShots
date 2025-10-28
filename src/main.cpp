@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
     SingleApplication app(argc, argv, PACKAGE_NAME);
     app.setQuitOnLastWindowClosed(false); // because of systray
-    app.setApplicationVersion(QStringLiteral("2.2.0"));
+    app.setApplicationVersion(QStringLiteral("2.2.1"));
 
     // add possible image plugin path
 #ifdef Q_OS_MAC

@@ -78,12 +78,9 @@ SOURCES += src/3rdparty/qkeysequencewidget/qkeysequencewidget.cpp \
     src/uploaders/UploaderRegistering.cpp \
     src/uploaders/UploaderManager.cpp \
     src/uploaders/ImgurUploader.cpp \
-    src/uploaders/ImageshackUploader.cpp \
     src/uploaders/FtpUploaderSettings.cpp \
     src/uploaders/FtpUploader.cpp \
-    src/uploaders/FreeImageHostingUploader.cpp \
     src/uploaders/DefaultUploaderSettings.cpp \
-    src/uploaders/CanardPCUploader.cpp \
     src/uploaders/BaseUploader.cpp \
     src/WindowGrabber_x11.cpp \
     src/WindowGrabber_win.cpp \
@@ -157,12 +154,9 @@ HEADERS  += src/3rdparty/qkeysequencewidget/qkeysequencewidget.h \
     src/uploaders/UploaderRegistering.h \
     src/uploaders/UploaderManager.h \
     src/uploaders/ImgurUploader.h \
-    src/uploaders/ImageshackUploader.h \
     src/uploaders/FtpUploaderSettings.h \
     src/uploaders/FtpUploader.h \
-    src/uploaders/FreeImageHostingUploader.h \
     src/uploaders/DefaultUploaderSettings.h \
-    src/uploaders/CanardPCUploader.h \
     src/uploaders/BaseUploader.h \
     src/WindowGrabber.h \
     src/SplashScreen.h \

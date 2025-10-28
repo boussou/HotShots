@@ -25,7 +25,7 @@
 
 #define PACKAGE_ORGANIZATION "TheHive"
 #define PACKAGE_NAME "HotShots"
-#define PACKAGE_VERSION "2.2.0"
+#define PACKAGE_VERSION "2.2.1"
 #define PACKAGE_ONLINE_HELP_URL "https://github.com/boussou/HotShots"
 #define PACKAGE_CHECK_RELEASE_URL "http://sourceforge.net/projects/hotshots/files"
 #define PACKAGE_DESCRIPTION "Screenshot utility"

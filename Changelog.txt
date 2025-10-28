@@ -1,3 +1,12 @@
+hVersion 2.2.1
+* Features
+-- Updated help URL to GitHub repository
+-- Removed obsolete uploaders (kept only Imgur and FTP)
+-- Added filename display toolbar
+-- Improved export functionality with separate Export/Export As actions
+-- Suppressed system tray notification dialog
+-- Various UI improvements and bug fixes
+
 Version 2.2.0
 * Features
 - Restore last selection in region and freehand grabbing
@@ -32,7 +41,7 @@ Version 2.0.1
 Version 2.0.0
 * Features:
 - Auto-start on Linux
-- Add Portuguese translation. Thanks to Vinícius "A. Jorge".
+- Add Portuguese translation. Thanks to VinÃ­cius "A. Jorge".
 - Add German translation. Thanks to dbr.
 - Change default location of translation file on Linux ("/share/hotshots/locale" instead of "/share/locale")
 - Change some icons (best visual consistency)

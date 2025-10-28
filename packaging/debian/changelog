@@ -1,3 +1,15 @@
+hotshots (2.2.1) unstable; urgency=low
+
+  * Features:
+        - Updated help URL to GitHub repository
+        - Removed obsolete uploaders (kept only Imgur and FTP)
+        - Added filename display toolbar
+        - Improved export functionality with separate Export/Export As actions
+        - Suppressed system tray notification dialog
+        - Various UI improvements and bug fixes
+
+ -- HotShots Team <hotshots@github.com>  Mon, 28 Oct 2025 09:17:00 +0100
+
 hotshots (2.2.0) unstable; urgency=low
 
   * Features:
