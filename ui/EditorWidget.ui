@@ -632,6 +632,7 @@
    <addaction name="separator"/>
    <addaction name="actionCopyToClipboard"/>
    <addaction name="actionExport"/>
+   <addaction name="actionExportAs"/>
    <addaction name="actionUpload"/>
    <addaction name="actionPrint"/>
    <addaction name="separator"/>
@@ -1223,6 +1224,7 @@
     <string notr="true"/>
    </property>
   </action>
+
   <action name="actionExport">
    <property name="enabled">
     <bool>true</bool>
@@ -1240,7 +1242,27 @@
    <property name="shortcut">
     <string notr="true"/>
    </property>
+  </action>  
+  
+  <action name="actionExportAs">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../res/hotshots.qrc">
+     <normaloff>:/editor/editor/save_as.png</normaloff>:/editor/editor/save_as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Export as</string>
+   </property>
+   <property name="toolTip">
+    <string>Export image as</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
+
   <action name="actionUpload">
    <property name="icon">
     <iconset resource="../res/hotshots.qrc">

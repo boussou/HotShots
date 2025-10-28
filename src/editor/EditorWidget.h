@@ -91,6 +91,7 @@ private slots:
     void on_actionFont_triggered();
     void on_actionClear_triggered();
     void on_actionExport_triggered();
+    void on_actionExportAs_triggered();
     void on_actionDuplicate_triggered();
     void on_actionCopyToClipboard_triggered();
 

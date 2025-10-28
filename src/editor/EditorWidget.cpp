@@ -886,6 +886,24 @@ void EditorWidget::on_actionClear_triggered()
 
 void EditorWidget::on_actionExport_triggered()
 {
+    if (m_currentFile.isEmpty())
+    {
+        // No current file, fall back to Export As behavior
+        on_actionExportAs_triggered();
+        return;
+    }
+    
+    // Save to the current filename without dialog
+    QFileInfo fileInfo(m_currentFile);
+    QString exportFile = fileInfo.absolutePath() + "/" + fileInfo.baseName() + ".png";
+    emit requestExport(m_scene->getRenderToPixmap(), exportFile);
+    
+    // Show notification in status bar
+    statusBar()->showMessage(tr("Image exported to: %1").arg(QFileInfo(exportFile).fileName()), 3000);
+}
+
+void EditorWidget::on_actionExportAs_triggered()
+{
     emit requestExport(m_scene->getRenderToPixmap(),"");
 }
 
