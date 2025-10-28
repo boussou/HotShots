@@ -95,7 +95,8 @@ int main(int argc, char *argv[])
     QCommandLineParser parser;
     parser.setApplicationDescription("HotShots - Screenshot utility with built-in editor\n\n"
                                    "HotShots allows you to capture screenshots and edit them with "
-                                   "various tools including shapes, text, arrows, and effects.");
+                                   "various tools including shapes, text, arrows, and effects.\n\n"
+                                   "You can also specify a filename directly as an argument to open it in the editor.");
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addOption(resetOpt);
@@ -110,24 +111,36 @@ int main(int argc, char *argv[])
     {
         forceResetConfig = true;
     }
-    else if(parser.isSet(portablOpt))
+    
+    if(parser.isSet(portablOpt))
     {
         QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, QApplication::applicationDirPath());
         QSettings::setPath(QSettings::IniFormat, QSettings::SystemScope, QApplication::applicationDirPath());
         QSettings::setDefaultFormat(QSettings::IniFormat);
     }
-    else if(parser.isSet(nosingleOpt))
+    
+    if(parser.isSet(nosingleOpt))
     {
         ignoreSingleInstance = true;
     }
-    else if(parser.isSet(editorOpt))
+    
+    if(parser.isSet(editorOpt))
     {
         editorOnly = true;
         ignoreSingleInstance = true;
     }
-    else if(parser.isSet(fileOpt))
+    
+    if(parser.isSet(fileOpt))
     {
         fileToLoad = parser.value(fileOpt);
+        editorOnly = true;  // Auto-enable editor mode when loading a file
+        ignoreSingleInstance = true;
+    }
+    
+    // Check for positional arguments (non-option parameters) and treat them as filenames
+    QStringList positionalArgs = parser.positionalArguments();
+    if (!positionalArgs.isEmpty() && fileToLoad.isEmpty()) {
+        fileToLoad = positionalArgs.first();
         editorOnly = true;  // Auto-enable editor mode when loading a file
         ignoreSingleInstance = true;
     }

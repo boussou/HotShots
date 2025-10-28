@@ -63,6 +63,10 @@ m_recentFilesMenu(NULL)
     m_ui->setupUi(this);
     updateUi();
     loadSettings();
+    
+    // Connect the requestExport signal to our internal handler for standalone mode
+    connect(this, SIGNAL(requestExport(const QPixmap&, const QString&)), 
+            this, SLOT(handleExportRequest(const QPixmap&, const QString&)));
 }
 
 EditorWidget::~EditorWidget()
@@ -676,6 +680,11 @@ void EditorWidget::keyPressEvent ( QKeyEvent * event )
     {
         m_ui->graphicsView->zoomMinus();
     }
+    else if (event->key() == Qt::Key_S && event->modifiers() == Qt::ControlModifier)
+    {
+        // Ctrl+S triggers actionExport
+        m_ui->actionExport->activate(QAction::Trigger);
+    }
 }
 
 // new actions
@@ -1207,6 +1216,48 @@ void EditorWidget::on_actionRescaleBackgroundImage_triggered()
     {
         m_originalPixmap = m_originalPixmap.scaled(dia.getFinalSize(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
         m_scene->setUnderlayImage( m_originalPixmap.toImage() );
+    }
+}
+
+void EditorWidget::handleExportRequest(const QPixmap &pixmap, const QString &filename)
+{
+    QString saveName = filename;
+    
+    if (saveName.isEmpty())
+    {
+        // Show file dialog for Export As behavior
+        QString selectedExtension = "Images png (*.png)";
+        saveName = QFileDialog::getSaveFileName(this, tr("Export Image"), 
+                                              m_lastImageDirectory + "/export.png",
+                                              "PNG Images (*.png);;JPEG Images (*.jpg);;BMP Images (*.bmp);;TIFF Images (*.tiff)", 
+                                              &selectedExtension);
+        
+        if (saveName.isEmpty())
+            return; // User cancelled
+    }
+    
+    // Extract extension and save the pixmap
+    QFileInfo fileInfo(saveName);
+    QString ext = fileInfo.suffix();
+    if (ext.isEmpty())
+    {
+        ext = "png";
+        saveName += ".png";
+    }
+    
+    bool success = pixmap.save(saveName, ext.toUpper().toStdString().c_str());
+    
+    if (success)
+    {
+        // Update last directory
+        m_lastImageDirectory = fileInfo.absolutePath();
+        
+        // Show success message in status bar
+        statusBar()->showMessage(tr("Image exported to: %1").arg(fileInfo.fileName()), 3000);
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Export failed"), tr("Error exporting image to file: %1").arg(saveName));
     }
 }
 

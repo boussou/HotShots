@@ -108,6 +108,8 @@ private slots:
     void on_actionImportClipboard_triggered();
 
     void on_labelFontSize_clicked();
+    
+    void handleExportRequest(const QPixmap &pixmap, const QString &filename);
 
     void displayCurrentItemData(bool force = false);
 
