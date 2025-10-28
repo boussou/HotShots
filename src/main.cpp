@@ -68,11 +68,13 @@ int main(int argc, char *argv[])
     app.setQuitOnLastWindowClosed(false); // because of systray
     app.setApplicationVersion(QStringLiteral("2.2.1"));
 
+/* it seems to me it is useless code ?
     // add possible image plugin path
 #ifdef Q_OS_MAC
     app.addLibraryPath(QApplication::applicationDirPath() + "/../plugins");
 #endif
     app.addLibraryPath( QApplication::applicationDirPath() + "./plugins");
+*/
 
     // update some application infos (use by some platform for temp storage, ...)
     MiscFunctions::updateApplicationIdentity();
@@ -97,7 +99,7 @@ int main(int argc, char *argv[])
                                    "HotShots allows you to capture screenshots and edit them with "
                                    "various tools including shapes, text, arrows, and effects.\n\n"
                                    "You can also specify a filename directly as an argument to open it in the editor.");
-    parser.addHelpOption();
+    parser.addHelpOption();  //help -  adds -h and --help options to the command line
     parser.addVersionOption();
     parser.addOption(resetOpt);
     parser.addOption(portablOpt);

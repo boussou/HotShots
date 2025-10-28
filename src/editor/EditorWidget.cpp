@@ -907,9 +907,21 @@ void EditorWidget::on_actionExport_triggered()
         return;
     }
     
-    // Save to the current filename without dialog
+    // Save to the current filename with the same extension
     QFileInfo fileInfo(m_currentFile);
-    QString exportFile = fileInfo.absolutePath() + "/" + fileInfo.baseName() + ".png";
+    QString exportFile;
+    
+    // If it's a .hot file, export as PNG, otherwise keep the original extension
+    if (fileInfo.suffix().toLower() == "hot")
+    {
+        exportFile = fileInfo.absolutePath() + "/" + fileInfo.baseName() + ".png";
+    }
+    else
+    {
+        // Keep the original extension for image files
+        exportFile = m_currentFile;
+    }
+    
     emit requestExport(m_scene->getRenderToPixmap(), exportFile);
     
     // Show notification in status bar
