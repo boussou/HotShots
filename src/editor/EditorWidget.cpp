@@ -845,7 +845,7 @@ void EditorWidget::on_actionDuplicate_triggered()
 void EditorWidget::on_actionQuit_triggered()
 {
     m_scene->setMode("Select");
-    close();
+    QApplication::quit();
 }
 
 void EditorWidget::on_actionFontSizeUp_triggered()
