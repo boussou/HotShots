@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 #include <QFontDialog>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QFileInfo>
 #include <QDragEnterEvent>
 #include <QClipboard>
 #include <QDesktopServices>
@@ -308,6 +309,8 @@ bool EditorWidget::load(const QString &file)
     else // simple image file
     {
         load( QPixmap(file) );
+        m_currentFile = file;
+        updateTitle(m_currentFile);
     }
     addRecentlyOpenedFile(file, m_recentFiles);
 
@@ -355,6 +358,17 @@ void EditorWidget::updateTitle(const QString &file)
     if ( !m_scene->getUnderlayImage().isNull() )
         title += QString(" - %1x%2").arg( m_scene->getUnderlayImage().width() ).arg( m_scene->getUnderlayImage().height() );
     setWindowTitle(title);
+    
+    // Update the filename label in the toolbar
+    if (file.isEmpty())
+    {
+        m_ui->labelCurrentFilename->setText("No file loaded");
+    }
+    else
+    {
+        QFileInfo fileInfo(file);
+        m_ui->labelCurrentFilename->setText(fileInfo.fileName());
+    }
 }
 
 //-----------------------------------------------------------------------

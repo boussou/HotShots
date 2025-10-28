@@ -677,6 +677,28 @@
    <addaction name="actionSave"/>
    <addaction name="actionSaveAs"/>
   </widget>
+  <widget class="QToolBar" name="toolBarFilename">
+   <property name="windowTitle">
+    <string>Current File</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <widget class="QLabel" name="labelCurrentFilename">
+    <property name="text">
+     <string>No file loaded</string>
+    </property>
+    <property name="styleSheet">
+     <string>QLabel { padding: 5px; font-weight: bold; }</string>
+    </property>
+   </widget>
+  </widget>
   <action name="actionSelect">
    <property name="checkable">
     <bool>true</bool>
