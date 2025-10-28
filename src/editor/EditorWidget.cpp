@@ -788,9 +788,14 @@ void EditorWidget::on_actionCrop_triggered()
 
 //--------------------------------------------------------------------------------------
 
-void EditorWidget::on_actionFitToView_triggered()
+void EditorWidget::fitToView()
 {
     m_ui->graphicsView->fitScale();
+}
+
+void EditorWidget::on_actionFitToView_triggered()
+{
+    fitToView();
 }
 
 void EditorWidget::on_actionResetScale_triggered()

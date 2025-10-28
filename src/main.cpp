@@ -26,12 +26,14 @@
 #include <QMessageBox>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QTimer>
 
 #include "MainWindow.h"
 #include "SingleApplication.h"
 #include "AppSettings.h"
 #include "MiscFunctions.h"
 #include "SplashScreen.h"
+#include "editor/EditorWidget.h"
 
 #ifdef Q_OS_WIN
 #include <windows.h> // for Sleep
@@ -82,15 +84,18 @@ int main(int argc, char *argv[])
     bool forceResetConfig = false;
     bool ignoreSingleInstance = false;
     bool editorOnly = false;
-    QCommandLineOption resetOpt(QStringList() << "r" << "reset-config", "clear the saved preference parameters");
-    QCommandLineOption portablOpt(QStringList() << "p" << "portable", "clear the saved preference parameters");
-    QCommandLineOption nosingleOpt(QStringList() << "n" << "no-singleinstance", "clear the saved preference parameters");
-    QCommandLineOption fileOpt(QStringList() << "f" << "file", "clear the saved preference parameters");
-    QCommandLineOption editorOpt(QStringList() << "e" << "edit", "Start editor only");
+    QCommandLineOption resetOpt(QStringList() << "r" << "reset-config", "Reset all configuration settings to defaults");
+    QCommandLineOption portablOpt(QStringList() << "p" << "portable", "Run in portable mode (settings stored locally)");
+    QCommandLineOption nosingleOpt(QStringList() << "n" << "no-singleinstance", "Allow multiple instances of the application");
+    QCommandLineOption fileOpt(QStringList() << "f" << "file", "Load specified file in editor", "filename");
+    QCommandLineOption editorOpt(QStringList() << "e" << "edit", "Launch editor window directly (bypass main window)");
 
 
     QString fileToLoad;
     QCommandLineParser parser;
+    parser.setApplicationDescription("HotShots - Screenshot utility with built-in editor\n\n"
+                                   "HotShots allows you to capture screenshots and edit them with "
+                                   "various tools including shapes, text, arrows, and effects.");
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addOption(resetOpt);
@@ -99,7 +104,7 @@ int main(int argc, char *argv[])
     parser.addOption(editorOpt);
     parser.addOption(fileOpt);
 
-    parser.parse(app.arguments());
+    parser.process(app.arguments());
 
     if(parser.isSet(resetOpt))
     {
@@ -123,6 +128,15 @@ int main(int argc, char *argv[])
     else if(parser.isSet(fileOpt))
     {
         fileToLoad = parser.value(fileOpt);
+        editorOnly = true;  // Auto-enable editor mode when loading a file
+        ignoreSingleInstance = true;
+    }
+    
+    // Handle combined -e and -f options
+    if(parser.isSet(editorOpt) && parser.isSet(fileOpt))
+    {
+        fileToLoad = parser.value(fileOpt);
+        editorOnly = true;
         ignoreSingleInstance = true;
     }
 
@@ -167,27 +181,45 @@ int main(int argc, char *argv[])
         sScreen->show();
     }
 
-    MainWindow w;
-    QObject::connect( &app, SIGNAL( messageAvailable(const QString &) ), &w, SLOT( wakeUp(const QString &) ) );
-
-    // splash screen
-    if (splashscreenAtStartup)
+    if (editorOnly)
     {
-        if (!startInTray)
-            sScreen->delayedFinish(&w);
+        // Launch editor directly
+        EditorWidget *editor = new EditorWidget();
+        editor->show();
+        if ( !fileToLoad.isEmpty() )
+        {
+            editor->load(fileToLoad);
+            // Ensure the image is properly scaled to fit the window
+            QTimer::singleShot(100, [editor]() {
+                editor->fitToView();
+            });
+        }
+        return app.exec();
     }
-
+    else
     {
+        MainWindow w;
+        QObject::connect( &app, SIGNAL( messageAvailable(const QString &) ), &w, SLOT( wakeUp(const QString &) ) );
+
+        // splash screen
+        if (splashscreenAtStartup)
+        {
+            if (!startInTray)
+                sScreen->delayedFinish(&w);
+        }
+
+        {
 #ifdef _DEBUG // ugly hack for debugging
-        if (startInTray)
-            w.show();
+            if (startInTray)
+                w.show();
 #endif
-        if (!startInTray)
-            w.show();
+            if (!startInTray)
+                w.show();
+        }
+
+        if ( !fileToLoad.isEmpty() )
+            w.openEditor(fileToLoad);
+
+        return app.exec();
     }
-
-    if ( !fileToLoad.isEmpty() )
-        w.openEditor(fileToLoad);
-
-    return app.exec();
 }

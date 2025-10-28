@@ -43,6 +43,7 @@ public:
 
     bool load(const QString &);
     void load(const QPixmap &);
+    void fitToView();
 
 signals:
 
