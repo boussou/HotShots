@@ -64,7 +64,12 @@ void SingleApplication::receiveMessage()
     QLocalSocket *localSocket = m_localServer->nextPendingConnection();
     if ( !localSocket->waitForReadyRead(m_timeout) )
     {
-        qDebug( "%s",localSocket->errorString().toStdString().c_str() );
+        // Suppress debug message for connection refused (normal behavior)
+		//it allows
+		//-  Prevents multiple instances
+		//- Inter-instance communication - can send messages/files to existing instance
+		//-  File opening in existing instance - when you try to open HotShots with a file, it opens in the existing instance
+        // qDebug( "%s",localSocket->errorString().toStdString().c_str() );
         return;
     }
     QByteArray byteArray = localSocket->readAll();
@@ -89,14 +94,18 @@ bool SingleApplication::sendMessage(const QString &message)
     localSocket.connectToServer(m_uniqueKey, QIODevice::WriteOnly);
     if ( !localSocket.waitForConnected(m_timeout) )
     {
-        qDebug( "%s",localSocket.errorString().toStdString().c_str() );
+        // Suppress debug message for connection refused (normal behavior)
+		//- it allows to orevents multiple instances		
+        // qDebug( "%s",localSocket.errorString().toStdString().c_str() );
         return false;
     }
 
     localSocket.write( message.toUtf8() );
     if ( !localSocket.waitForBytesWritten(m_timeout) )
     {
-        qDebug( "%s",localSocket.errorString().toStdString().c_str() );
+        // Suppress debug message for write errors
+		//- it allows to orevents multiple instances		
+        // qDebug( "%s",localSocket.errorString().toStdString().c_str() );
         return false;
     }
     localSocket.disconnectFromServer();
